@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window apply="grailsBindComposer"
+        viewModel="@id('vm') @init('listViewModel')">
+
+        <label style="font-size: 2em; margin: 2em 0.1em;" value="Persons"/>
+
+        <listbox model="@load(vm.persons)" hflex="true">
+           <listhead>
+              <listheader label="Id" />
+              <listheader label="First Name" />
+              <listheader label="Last Name" />
+              <listheader label="Website" />
+              <listheader label="Email" />
+           </listhead>
+           <template name="model" var="item">
+              <listitem>
+                 <listcell label="@load(item.id)" />
+                 <listcell label="@load(item.firstName)" />
+                 <listcell label="@load(item.lastName)" />
+                 <listcell label="@load(item.website)" />
+                 <listcell label="@load(item.email)" />
+              </listitem>
+           </template>
+        </listbox>
+
+    </window>
+
+</zk>

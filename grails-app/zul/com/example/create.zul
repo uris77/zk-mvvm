@@ -7,14 +7,59 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window apply="com.example.CreateComposer">
+    <window 
+       apply="com.example.CreateComposer"
+       viewModel="@id('vm') @init('com.example.PersonViewModel')"
+       validationMessages="@id('vmsgs')">
 
-       <label value="Create Person" />
+       <label style="font-size: 2em" value="Create Person" />
+         <div width="100%" style="background: #AAAAFF">
+            <label  value="@load(vm.successFlash)"/>
+         </div>
 
-       <grid>
+         <div id="errorDiv" width="100%" style="background: #DDAA99">
+            <label />
+         </div>
+
+       <grid width="30%">
+          <columns>
+             <column align="right" width="20%"/>
+             <column />
+          </columns>
+          <rows>
+             <row>
+               <label value="First Name"/>
+               <hbox>
+                   <textbox id="firstNameTextbox" 
+                      value="@bind(vm.person.firstName) 
+                        @save(vm.person.firstName, before='save')
+                        @validator(vm.firstNameValidator)"  />
+                     <label value="@load(vmsgs[firstNameTextbox])" style="color:red;"/>
+               </hbox>
+             </row>
+             <row>
+                <label value="Last Name" />
+                <hbox>
+                   <textbox id="lastNameTextbox"
+                      value="@bind(vm.person.lastName) 
+                        @save(vm.person.lastName, before='save')
+                        @validator(vm.firstNameValidator)"  constraint="no empty" />
+                  <label value="@load(vmsgs[lastNameTextbox])" sclass="red" />
+                </hbox>
+             </row>
+             <row>
+               Website 
+               <textbox value="@bind(vm.person.website)" />
+             </row>
+             <row>
+                 Email 
+                 <textbox value="@bind(vm.person.email)" />
+             </row>
+          </rows>
        </grid>
-
-
+       <toolbar>
+          <button id="createButton" label="Create" onClick="@command('save'))" />
+       </toolbar>
 
     </window>
 
